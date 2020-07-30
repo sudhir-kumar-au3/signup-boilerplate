@@ -12,7 +12,6 @@ const userRegister = async (req, res) => {
     });
     if (!userData) {
       randomCode = crypto.randomBytes(20).toString("hex");
-      console.log("random code: ", randomCode);
       host = req.get("host");
       link = `http://${req.get("host")}/verify?id=${randomCode}&user=${email}`;
       mailOptions = {
@@ -54,7 +53,7 @@ const verifyEmailID = async (req, res) => {
       if (verified) {
         return res.status(200).json({
           success: true,
-          message: `Email ${mailOptions.to} is been Successfully verified`,
+          message: `Your email-Id is been Successfully verified`,
         });
       } else {
         return res

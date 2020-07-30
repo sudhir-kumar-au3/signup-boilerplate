@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { userSchema } = require("../models/userModel");
 const dotenv = require("dotenv");
 dotenv.config();
-// connect mongodb database
+// connect Azure cosmoDB (mongodb instance) database
 const url = process.env.DB_URL;
 const connection = mongoose.createConnection(url, {
   useNewUrlParser: true,
