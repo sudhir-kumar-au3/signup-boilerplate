@@ -7,7 +7,7 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required"],
       minLength: [3, "Name is too short!"],
-      maxLength: 15,
+      maxLength: 25,
     },
     mobile: {
       type: Number,
@@ -21,6 +21,10 @@ const userSchema = new Schema(
         message: "Phone no. should be of 10 digits",
       },
       required: [true, "User phone number required"],
+    },
+    verifiedMobile: {
+      type: Boolean,
+      default: false,
     },
     email: {
       type: String,
@@ -37,6 +41,10 @@ const userSchema = new Schema(
         message: (props) => `${props.value} is not a valid email address!`,
       },
       unique: true,
+    },
+    verifiedEmail: {
+      type: Boolean,
+      default: false,
     },
     password: {
       type: String,

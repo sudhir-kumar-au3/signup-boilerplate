@@ -7,6 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const verifiedRouter = require("./routes/verifiedRoutes");
 const cors = require("cors");
 const app = express();
 app.use(
@@ -34,8 +35,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/", indexRouter);
-app.use("/api", usersRouter);
-
+app.use("/user", usersRouter);
+app.use("/api", verifiedRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
