@@ -16,6 +16,7 @@ app.use(
       `${process.env.FRONT_URL}`,
       "http://localhost:8080",
       "https://mypage.com",
+      "http://localhost:3000",
     ],
     credentials: true,
   })

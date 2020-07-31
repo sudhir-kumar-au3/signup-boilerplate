@@ -1,9 +1,9 @@
-import React from "react";
+import { Box } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Typography, Box } from "@material-ui/core";
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import Router from "./Routers/Router";
 import Navigation from "./components/Navigation";
+import Router from "./Routers/Router";
 function App() {
   return (
     <React.Fragment>

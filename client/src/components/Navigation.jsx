@@ -37,8 +37,10 @@ const Navigation = (props) => {
       <Grid item sm={12} xs={12} className={classes.container}>
         <Toolbar>
           <Grid className={classes.grow}>
-            <Button className={[classes.mainLogo]}>
-              <Avatar src="http://img.icons8.com/color/48/000000/spring-logo.png" />
+            <Button>
+              <Link to="/home">
+                <Avatar src="http://img.icons8.com/color/48/000000/spring-logo.png" />
+              </Link>
             </Button>
           </Grid>
           <Button color="inherit" className={classes.buttonFontSize}>

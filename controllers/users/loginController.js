@@ -14,7 +14,7 @@ const userLogin = async (req, res) => {
       } else {
         return res
           .status(401)
-          .json({ success: false, error: "Incorrect Password!" });
+          .json({ success: false, error: "Incorrect Credentials!" });
       }
     } else {
       return res

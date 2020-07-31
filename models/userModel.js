@@ -49,19 +49,21 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      validate: {
-        validator: function (v) {
-          return new Promise((resolve, reject) => {
-            resolve(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
-                v
-              )
-            );
-          });
-        },
-        message:
-          "Password must contain min. 6 characters, a capital letter and a special character",
-      },
+      minLength: [6, "Password must contain atleast 6 characters!"],
+
+      // validate: {
+      //   validator: function (v) {
+      //     return new Promise((resolve, reject) => {
+      //       resolve(
+      //         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(
+      //           v
+      //         )
+      //       );
+      //     });
+      //   },
+      //   message:
+      //     "Password must contain min. 6 characters, a capital letter and a special character",
+      // },
     },
   },
   {
@@ -73,6 +75,8 @@ userSchema.pre("save", function (next) {
   this.password = bcrypt.hashSync(this.password, 10);
   next();
 });
+userSchema.index({ name: 1, email: -1 });
+userSchema.set("autoIndex", false);
 module.exports = {
   userSchema,
 };
