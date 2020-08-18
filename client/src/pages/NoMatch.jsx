@@ -1,13 +1,16 @@
 import React from "react";
-import { Typography } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 
 function NoMatch() {
   return (
-    <div>
-      <Typography align="center" variant="h1" color="error">
-        Error 404
+    <Box height="90vh" margin={20}>
+      <Typography align="center" variant="h3" color="textSecondary">
+        Page not found!
       </Typography>
-    </div>
+      <Typography align="center" variant="h1" color="error">
+        404
+      </Typography>
+    </Box>
   );
 }
 

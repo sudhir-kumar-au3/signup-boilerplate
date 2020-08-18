@@ -5,12 +5,13 @@ import Signup from "../pages/Signup";
 import Home from "../pages/Home";
 import withAuth from "../components/AuthHOC";
 import NoMatch from "../pages/NoMatch";
+import ProtectedRoute from "./ProtectedRoute";
 function Router() {
   return (
     <Switch>
       <Route component={Login} exact path="/signin" />
       <Route component={Signup} exact path="/register" />
-      <Route component={withAuth(Home)} exact path="/home"></Route>
+      <ProtectedRoute component={withAuth(Home)} path="/home"></ProtectedRoute>
       <Route path="*">
         <NoMatch />
       </Route>

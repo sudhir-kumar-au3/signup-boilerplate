@@ -19,19 +19,19 @@ const userRegister = async (req, res) => {
         subject: "Please confirm your Email account",
         html: `Hello,<br> Please Click on the link to verify your email.<br><a href=${link}>Click here to verify</a>`,
       };
-      const verification = await smtpTransport.sendMail(mailOptions);
-      if (verification) {
-        const newUser = await Users.create(req.body);
-        return res.status(201).json({
-          success: true,
-          message: `${newUser.name} registered successfully!`,
-          info: "Please check your email for verification code",
-        });
-      } else {
-        return res
-          .status(500)
-          .json({ success: false, error: "Something went wrong!" });
-      }
+      // const verification = await smtpTransport.sendMail(mailOptions);
+      // if (verification) {
+      const newUser = await Users.create(req.body);
+      return res.status(201).json({
+        success: true,
+        message: `${newUser.name} registered successfully!`,
+        info: "Please check your email for verification code",
+      });
+      // } else {
+      //   return res
+      //     .status(500)
+      //     .json({ success: false, error: "Something went wrong!" });
+      // }
     } else {
       return res.status(409).json({
         success: false,

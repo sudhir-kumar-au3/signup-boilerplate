@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 function authGuard(WrappedComponent) {
   return class HOC extends Component {
     render() {
@@ -12,6 +12,16 @@ function authGuard(WrappedComponent) {
         }
         if (isAuthenticated) {
           history.push("/home");
+        }
+        if (isAuthenticated && window.location.pathname === "/signin") {
+          return (
+            <Redirect
+              to={{
+                pathname: "/home",
+                state: { from: this.props.location },
+              }}
+            ></Redirect>
+          );
         }
       }
 

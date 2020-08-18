@@ -4,19 +4,21 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const dotenv = require("dotenv");
+const helmet = require("helmet");
 dotenv.config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const verifiedRouter = require("./routes/verifiedRoutes");
 const cors = require("cors");
 const app = express();
+app.use(helmet.xssFilter());
+
 app.use(
   cors({
     origin: [
-      `${process.env.FRONT_URL}`,
+      process.env.FRONT_URL,
       "http://localhost:8080",
       "https://mypage.com",
-      "http://localhost:3000",
     ],
     credentials: true,
   })
@@ -30,7 +32,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
 app.get("/", (req, res) => {
   res.send("Welcome to Express!");
 });
