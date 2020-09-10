@@ -34,6 +34,7 @@ const home1 = async (req, res) => {
       success: true,
       images,
       count,
+      length: images.length,
       totalPage: Math.ceil(count / limit),
       currentPage: page,
     });
@@ -51,12 +52,22 @@ const home2 = async (req, res) => {
   const { page = 1, limit = 20, search = "" } = req.query;
   try {
     console.time("----images_with_populate_and_indexing----");
-    const images = await Images.find({
-      author: { $regex: search, $options: "i" },
-    })
-      .populate("owner", "-password")
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
+    const images = await Images.find(
+      {
+        $or: [
+          {
+            $text: { $search: `\"${search}\"` },
+          },
+          { author: { $regex: search, $options: "i" } },
+        ],
+      },
+      { score: { $meta: "textScore" } }
+    )
+      .sort({ score: { $meta: "textScore" } })
+      // .limit(limit * 1)
+      // .skip((page - 1) * limit)
+      .lean()
+      .setOptions({ explain: "executionStats" })
       .exec();
     console.timeEnd("----images_with_populate_and_indexing----");
     const count = await Images.countDocuments();
@@ -65,11 +76,12 @@ const home2 = async (req, res) => {
       success: true,
       images,
       count,
+      resLength: images.length,
       totalPage: Math.ceil(count / limit),
       currentPage: page,
     });
   } catch (error) {
-    res.status(201).json({
+    res.json({
       success: false,
       message: "Something went wrong!",
       error: error.message,

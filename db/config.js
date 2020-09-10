@@ -51,6 +51,7 @@ Images.ensureIndexes((err) => {
   if (err) console.log("error: ", err);
   else console.log("Index created!");
 });
+Images.collection.getIndexes().then((res) => console.log(res));
 module.exports = {
   Users,
   Images,

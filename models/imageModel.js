@@ -6,11 +6,9 @@ const imageSchema = new Schema({
   },
   author: {
     type: String,
-    index: true,
   },
   width: {
     type: Number,
-    index: true,
   },
   height: {
     type: Number,
@@ -27,7 +25,9 @@ const imageSchema = new Schema({
     default: "5f279c8ea123fb2ad0d0c7a3",
   },
 });
+imageSchema.index({ author: 1 });
 imageSchema.index({ author: "text" });
+
 module.exports = {
   imageSchema,
 };
